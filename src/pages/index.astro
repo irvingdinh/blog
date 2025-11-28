@@ -40,7 +40,7 @@ const sortedArticles = articles.sort((a, b) => b.data.date.getTime() - a.data.da
         {sortedPosts.map((post) => (
           <li>
             <a href={`/posts/${post.id.replace(/\/index$/, '')}`}>{post.data.title || post.id.replace(/\/index$/, '')}</a>
-            <span> - {post.data.date.toLocaleDateString()}</span>
+            <span> - {post.data.date.toLocaleString()}</span>
           </li>
         ))}
       </ul>

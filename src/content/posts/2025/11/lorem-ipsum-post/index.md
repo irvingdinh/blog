@@ -1,5 +1,5 @@
 ---
-date: 2025-11-28
+date: 2025-11-28T11:30:22+07:00
 title: "Lorem Ipsum"
 tags: [sample, test]
 ---

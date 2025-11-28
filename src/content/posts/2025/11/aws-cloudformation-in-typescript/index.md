@@ -1,5 +1,5 @@
 ---
-date: 2025-11-28
+date: 2025-11-28T13:16:50+07:00
 title: "Today I Learned: AWS CloudFormation in TypeScript"
 tags: [aws, cloud, infrastructure]
 ---
