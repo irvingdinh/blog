@@ -1,6 +1,10 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import Layout from "../layouts/Layout.astro";
+import PostCard from "../components/PostCard.astro";
+import Pagination from "../components/Pagination.astro";
+
+const PAGE_SIZE = 10;
 
 const posts = await getCollection("posts");
 const articles = await getCollection("articles", ({ data }) => !data.draft);
@@ -10,6 +14,19 @@ const sortedPosts = posts.sort(
 );
 const sortedArticles = articles.sort(
   (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+
+// Get first page of posts
+const firstPagePosts = sortedPosts.slice(0, PAGE_SIZE);
+const hasMorePosts = sortedPosts.length > PAGE_SIZE;
+const totalPages = Math.ceil(sortedPosts.length / PAGE_SIZE);
+
+// Render post content
+const renderedPosts = await Promise.all(
+  firstPagePosts.map(async (post) => ({
+    post,
+    Content: (await render(post)).Content,
+  }))
 );
 ---
 
@@ -24,10 +41,16 @@ const sortedArticles = articles.sort(
       <ul class="list-disc pl-5 space-y-2">
         {sortedArticles.map((article) => (
           <li>
-            <a class="text-blue-600 hover:underline" href={`/articles/${article.id.replace(/\/index$/, "")}`}>
+            <a
+              class="text-blue-600 hover:underline"
+              href={`/articles/${article.id.replace(/\/index$/, "")}`}
+            >
               {article.data.title}
             </a>
-            <span class="text-gray-600"> - {article.data.date.toLocaleDateString()}</span>
+            <span class="text-gray-600">
+              {" "}
+              - {article.data.date.toLocaleString()}
+            </span>
           </li>
         ))}
       </ul>
@@ -36,19 +59,24 @@ const sortedArticles = articles.sort(
 
   <h2 class="text-xl font-semibold mt-8 mb-4">Posts</h2>
   {
-    sortedPosts.length === 0 ? (
+    renderedPosts.length === 0 ? (
       <p>No posts yet.</p>
     ) : (
-      <ul class="list-disc pl-5 space-y-2">
-        {sortedPosts.map((post) => (
-          <li>
-            <a class="text-blue-600 hover:underline" href={`/posts/${post.id.replace(/\/index$/, "")}`}>
-              {post.data.title || post.id.replace(/\/index$/, "")}
-            </a>
-            <span class="text-gray-600"> - {post.data.date.toLocaleString()}</span>
-          </li>
+      <div class="space-y-8">
+        {renderedPosts.map(({ post, Content }) => (
+          <PostCard post={post} Content={Content} />
         ))}
-      </ul>
+      </div>
+    )
+  }
+
+  {
+    hasMorePosts && (
+      <Pagination
+        currentPage={1}
+        totalPages={totalPages}
+        nextUrl="/posts/2"
+      />
     )
   }
 </Layout>

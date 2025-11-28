@@ -22,7 +22,7 @@ const { Content } = await render(article);
   <article class="prose prose-lg max-w-none">
     <h1 class="text-3xl font-bold mb-2">{article.data.title}</h1>
     <p class="text-gray-600 mb-4">
-      <time>{article.data.date.toLocaleDateString()}</time>
+      <time>{article.data.date.toLocaleString()}</time>
     </p>
     {
       article.data.description && (
