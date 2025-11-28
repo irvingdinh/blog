@@ -28,7 +28,7 @@ const {Content} = await render(post);
 <article>
     {post.data.title && <h1>{post.data.title}</h1>}
     <p>
-        <time>{post.data.date.toLocaleDateString()}</time>
+        <time>{post.data.date.toLocaleString()}</time>
     </p>
     <Content/>
 </article>
