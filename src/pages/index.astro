@@ -1,49 +1,54 @@
 ---
-import {getCollection} from 'astro:content';
+import { getCollection } from "astro:content";
+import Layout from "../layouts/Layout.astro";
 
-const posts = await getCollection('posts');
-const articles = await getCollection('articles', ({data}) => !data.draft);
+const posts = await getCollection("posts");
+const articles = await getCollection("articles", ({ data }) => !data.draft);
 
-const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
-const sortedArticles = articles.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const sortedPosts = posts.sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+const sortedArticles = articles.sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
 ---
 
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Blog</title>
-</head>
-<body>
-<h1>Blog</h1>
+<Layout title="Blog">
+  <h1 class="text-3xl font-bold mb-6">Blog</h1>
 
-<h2>Articles</h2>
-    {sortedArticles.length === 0 ? (
+  <h2 class="text-xl font-semibold mt-8 mb-4">Articles</h2>
+  {
+    sortedArticles.length === 0 ? (
       <p>No articles yet.</p>
     ) : (
-      <ul>
+      <ul class="list-disc pl-5 space-y-2">
         {sortedArticles.map((article) => (
           <li>
-            <a href={`/articles/${article.id.replace(/\/index$/, '')}`}>{article.data.title}</a>
-            <span> - {article.data.date.toLocaleDateString()}</span>
+            <a class="text-blue-600 hover:underline" href={`/articles/${article.id.replace(/\/index$/, "")}`}>
+              {article.data.title}
+            </a>
+            <span class="text-gray-600"> - {article.data.date.toLocaleDateString()}</span>
           </li>
         ))}
       </ul>
-    )}
+    )
+  }
 
-<h2>Posts</h2>
-    {sortedPosts.length === 0 ? (
+  <h2 class="text-xl font-semibold mt-8 mb-4">Posts</h2>
+  {
+    sortedPosts.length === 0 ? (
       <p>No posts yet.</p>
     ) : (
-      <ul>
+      <ul class="list-disc pl-5 space-y-2">
         {sortedPosts.map((post) => (
           <li>
-            <a href={`/posts/${post.id.replace(/\/index$/, '')}`}>{post.data.title || post.id.replace(/\/index$/, '')}</a>
-            <span> - {post.data.date.toLocaleString()}</span>
+            <a class="text-blue-600 hover:underline" href={`/posts/${post.id.replace(/\/index$/, "")}`}>
+              {post.data.title || post.id.replace(/\/index$/, "")}
+            </a>
+            <span class="text-gray-600"> - {post.data.date.toLocaleString()}</span>
           </li>
         ))}
       </ul>
-    )}
-</body>
-</html>
+    )
+  }
+</Layout>
