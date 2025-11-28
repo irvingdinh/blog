@@ -27,9 +27,19 @@ Using Git to fetch all changes, checkout the `main` branch, and pull from origin
 
 ### Step 1: Content Refinement
 
-- Spell check and grammar check
-- Rephrase the content while preserving the original ideas
-- Keep the tone friendly, casual, and helpful
+**Important**: Keep the content as raw and authentic as possible. Do NOT embellish, expand, or add new information that wasn't in the original input.
+
+Your job is minimal editing only:
+- Fix spelling and grammar errors
+- Light rephrasing for clarity (only when sentences are confusing or awkward)
+- Minor structural adjustments to improve readability (e.g., paragraph breaks, simple formatting)
+- Maintain the author's voice and casual tone
+
+**Do NOT**:
+- Add examples, explanations, or details the author didn't provide
+- Expand on ideas or "fill in the gaps"
+- Make the content sound more polished or professional than the original
+- Add transitions, conclusions, or filler content
 
 ### Step 2: Context Research
 
