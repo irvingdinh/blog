@@ -1,16 +1,18 @@
 # Posts
 
-Short-form content that takes **less than 2 minutes to read**. Quick thoughts, updates, observations — anything you'd share on social media but want to own on your blog.
+Short-form content that takes **less than 2 minutes to read**. Quick thoughts, updates, observations — anything you'd
+share on social media but want to own on your blog.
 
 ## Folder Structure
 
 ```
-posts/{year}/{month}/{slug}/post.md
+posts/{year}/{month}/{slug}/index.md
 ```
 
 Example:
+
 ```
-posts/2025/11/quick-thought-on-ai/post.md
+posts/2025/11/quick-thought-on-ai/index.md
 ```
 
 Keep all related assets (images, audio, video) inside the same folder as the post.
@@ -21,7 +23,7 @@ Keep all related assets (images, audio, video) inside the same folder as the pos
 ---
 date: 2025-11-28                   # required
 title: "Optional Title"            # optional
-tags: [tag1, tag2]                 # optional
+tags: [ tag1, tag2 ]               # optional
 ---
 ```
 

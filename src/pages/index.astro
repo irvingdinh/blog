@@ -1,0 +1,49 @@
+---
+import {getCollection} from 'astro:content';
+
+const posts = await getCollection('posts');
+const articles = await getCollection('articles', ({data}) => !data.draft);
+
+const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const sortedArticles = articles.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Blog</title>
+</head>
+<body>
+<h1>Blog</h1>
+
+<h2>Articles</h2>
+    {sortedArticles.length === 0 ? (
+      <p>No articles yet.</p>
+    ) : (
+      <ul>
+        {sortedArticles.map((article) => (
+          <li>
+            <a href={`/articles/${article.id.replace(/\/index$/, '')}`}>{article.data.title}</a>
+            <span> - {article.data.date.toLocaleDateString()}</span>
+          </li>
+        ))}
+      </ul>
+    )}
+
+<h2>Posts</h2>
+    {sortedPosts.length === 0 ? (
+      <p>No posts yet.</p>
+    ) : (
+      <ul>
+        {sortedPosts.map((post) => (
+          <li>
+            <a href={`/posts/${post.id.replace(/\/index$/, '')}`}>{post.data.title || post.id.replace(/\/index$/, '')}</a>
+            <span> - {post.data.date.toLocaleDateString()}</span>
+          </li>
+        ))}
+      </ul>
+    )}
+</body>
+</html>

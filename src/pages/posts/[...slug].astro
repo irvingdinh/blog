@@ -1,0 +1,36 @@
+---
+import {getCollection, render} from 'astro:content';
+
+export async function getStaticPaths() {
+    const posts = await getCollection('posts');
+    return posts.map((post) => ({
+        params: {slug: post.id.replace(/\/index$/, '')},
+        props: {post},
+    }));
+}
+
+const {post} = Astro.props;
+const {Content} = await render(post);
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>{post.data.title || 'Post'}</title>
+</head>
+<body>
+<nav>
+    <a href="/">← Back to home</a>
+</nav>
+
+<article>
+    {post.data.title && <h1>{post.data.title}</h1>}
+    <p>
+        <time>{post.data.date.toLocaleDateString()}</time>
+    </p>
+    <Content/>
+</article>
+</body>
+</html>
