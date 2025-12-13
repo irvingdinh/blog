@@ -6,4 +6,10 @@ export const SITE = {
   defaultOgImagePath: "/og.png",
 } as const;
 
+export const AUTHOR = {
+  name: "Irving",
+  handle: "@irving",
+  initials: "I",
+} as const;
+
 

@@ -4,4 +4,6 @@
 /* Let the UA style built-in UI (form controls, scrollbars) to match system theme. */
 :root {
   color-scheme: light dark;
+  --font-sans: Inter, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }

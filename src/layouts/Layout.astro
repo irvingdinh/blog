@@ -24,6 +24,12 @@ const ogImageUrl = new URL(ogImagePath ?? SITE.defaultOgImagePath, baseUrl).toSt
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="light dark" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <title>{fullTitle}</title>
     <meta name="description" content={metaDescription} />
     <link rel="canonical" href={canonicalUrl} />
@@ -49,8 +55,68 @@ const ogImageUrl = new URL(ogImagePath ?? SITE.defaultOgImagePath, baseUrl).toSt
     <meta name="twitter:image" content={ogImageUrl} />
   </head>
   <body
-    class="max-w-2xl mx-auto px-4 py-8 bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100"
+    class="max-w-2xl mx-auto px-4 py-8 antialiased bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100"
   >
     <slot />
+
+    <!-- Global event delegation for PostCard "Copy link" buttons (works with infinite scroll too). -->
+    <script is:inline>
+      (() => {
+        function toAbsoluteUrl(href) {
+          try {
+            return new URL(href, window.location.origin).toString();
+          } catch {
+            return href;
+          }
+        }
+
+        async function copyText(text) {
+          if (navigator.clipboard?.writeText) {
+            await navigator.clipboard.writeText(text);
+            return;
+          }
+          // Fallback for older browsers.
+          const ta = document.createElement("textarea");
+          ta.value = text;
+          ta.setAttribute("readonly", "");
+          ta.style.position = "fixed";
+          ta.style.top = "-1000px";
+          ta.style.opacity = "0";
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand("copy");
+          document.body.removeChild(ta);
+        }
+
+        document.addEventListener("click", async (e) => {
+          const target = e.target;
+          if (!(target instanceof HTMLElement)) return;
+
+          const btn = target.closest("[data-copy-link]");
+          if (!(btn instanceof HTMLButtonElement)) return;
+
+          const card = btn.closest("article");
+          const link = card?.querySelector("[data-permalink]");
+          if (!(link instanceof HTMLAnchorElement)) return;
+
+          const url = toAbsoluteUrl(link.getAttribute("href") ?? "");
+          if (!url) return;
+
+          const prev = btn.textContent ?? "Copy link";
+          btn.disabled = true;
+          try {
+            await copyText(url);
+            btn.textContent = "Copied";
+          } catch {
+            btn.textContent = "Copy failed";
+          } finally {
+            window.setTimeout(() => {
+              btn.textContent = prev;
+              btn.disabled = false;
+            }, 1200);
+          }
+        });
+      })();
+    </script>
   </body>
 </html>

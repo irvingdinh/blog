@@ -9,12 +9,8 @@ import { formatDateYMD } from "../utils/date";
 const PAGE_SIZE = 10;
 
 const posts = await getCollection("posts");
-const articles = await getCollection("articles", ({ data }) => !data.draft);
 
 const sortedPosts = posts.sort(
-  (a, b) => b.data.date.getTime() - a.data.date.getTime()
-);
-const sortedArticles = articles.sort(
   (a, b) => b.data.date.getTime() - a.data.date.getTime()
 );
 
@@ -22,6 +18,7 @@ const sortedArticles = articles.sort(
 const firstPagePosts = sortedPosts.slice(0, PAGE_SIZE);
 const hasMorePosts = sortedPosts.length > PAGE_SIZE;
 const totalPages = Math.ceil(sortedPosts.length / PAGE_SIZE);
+const nextUrl = hasMorePosts ? "/posts/2/" : "";
 
 // Render post content
 const renderedPosts = await Promise.all(
@@ -33,38 +30,13 @@ const renderedPosts = await Promise.all(
 ---
 
 <Layout title={SITE.name} description={SITE.description}>
-  <h1 class="text-3xl font-bold mb-6">Blog</h1>
+  <h1 class="text-3xl font-bold mb-6">{SITE.name}</h1>
 
-  <h2 class="text-xl font-semibold mt-8 mb-4">Articles</h2>
-  {
-    sortedArticles.length === 0 ? (
-      <p>No articles yet.</p>
-    ) : (
-      <ul class="list-disc pl-5 space-y-2">
-        {sortedArticles.map((article) => (
-          <li>
-            <a
-              class="text-blue-600 dark:text-blue-400 hover:underline"
-              href={`/articles/${article.id.replace(/\/index$/, "")}/`}
-            >
-              {article.data.title}
-            </a>
-            <span class="text-zinc-600 dark:text-zinc-400">
-              {" "}
-              - {formatDateYMD(article.data.date)}
-            </span>
-          </li>
-        ))}
-      </ul>
-    )
-  }
-
-  <h2 class="text-xl font-semibold mt-8 mb-4">Posts</h2>
   {
     renderedPosts.length === 0 ? (
       <p>No posts yet.</p>
     ) : (
-      <div class="space-y-8">
+      <div class="space-y-10">
         {renderedPosts.map(({ post, Content }) => (
           <PostCard post={post} Content={Content} />
         ))}
@@ -77,7 +49,7 @@ const renderedPosts = await Promise.all(
       <Pagination
         currentPage={1}
         totalPages={totalPages}
-        nextUrl="/posts/2/"
+        nextUrl={nextUrl}
       />
     )
   }
