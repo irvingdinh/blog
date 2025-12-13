@@ -57,6 +57,7 @@ Following `src/content/posts/README.md`:
 - **Title**: Intelligently generate an appropriate title (or omit if the content works better without one)
 - **Date**: Use the current date
 - **Tags**: Based on research from Step 2
+- **Description**: Add a short description (~120-160 chars) derived from the post content (usually the first sentence/paragraph). Do not invent new info.
 
 ### Step 4: Build & Verify
 

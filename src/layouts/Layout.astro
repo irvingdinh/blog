@@ -1,12 +1,21 @@
 ---
 import "../styles/global.css";
+import { SITE } from "../site";
 
 interface Props {
   title: string;
   description?: string;
+  ogType?: "website" | "article";
+  ogImagePath?: string;
 }
 
-const { title, description } = Astro.props;
+const { title, description, ogType = "website", ogImagePath } = Astro.props;
+
+const baseUrl = Astro.site?.toString() ?? SITE.url;
+const canonicalUrl = new URL(Astro.url.pathname, baseUrl).toString();
+const metaDescription = description ?? SITE.description;
+const fullTitle = title === SITE.name ? title : `${title} | ${SITE.name}`;
+const ogImageUrl = new URL(ogImagePath ?? SITE.defaultOgImagePath, baseUrl).toString();
 ---
 
 <!doctype html>
@@ -14,8 +23,29 @@ const { title, description } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title}</title>
-    {description && <meta name="description" content={description} />}
+    <title>{fullTitle}</title>
+    <meta name="description" content={metaDescription} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={SITE.name}
+      href="/rss.xml"
+    />
+
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:image" content={ogImageUrl} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={metaDescription} />
+    <meta name="twitter:image" content={ogImageUrl} />
   </head>
   <body class="max-w-2xl mx-auto px-4 py-8">
     <slot />

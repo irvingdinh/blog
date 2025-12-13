@@ -24,7 +24,7 @@ Keep all related assets (images, audio, video) inside the same folder as the art
 title: "Your Article Title"        # required
 date: 2025-11-28                   # required
 tags: [ tag1, tag2 ]               # optional
-description: "A brief summary"     # optional
+description: "A brief summary"     # optional (recommended, ~120-160 chars)
 draft: false                       # optional, defaults to false
 ---
 ```

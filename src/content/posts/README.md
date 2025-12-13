@@ -25,6 +25,7 @@ date: 2025-11-28                   # required (date only)
 date: 2025-11-28T14:30:00          # required (with time, for multiple posts per day)
 title: "Optional Title"            # optional
 tags: [ tag1, tag2 ]               # optional
+description: "Short summary..."    # optional (recommended, ~120-160 chars)
 ---
 ```
 
