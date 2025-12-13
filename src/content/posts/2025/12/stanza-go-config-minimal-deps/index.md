@@ -2,6 +2,7 @@
 date: 2025-12-10T01:42:51+00:00
 title: "Back on stanza-go/config"
 tags: [tooling, personal]
+description: "Finally got back to coding my often-used Go package with my own philosophy of impose (for a good reason)."
 ---
 
 Finally got back to coding my often-used Go package with my own philosophy of impose (for a good reason).

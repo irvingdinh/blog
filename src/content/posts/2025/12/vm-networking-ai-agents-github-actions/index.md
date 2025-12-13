@@ -2,6 +2,7 @@
 date: 2025-12-02T12:00:00+07:00
 title: "Working Around VM Networking Limits With GitHub Actions"
 tags: [ai, tooling]
+description: "I’ve been talking about the VM-operated AI agents idea, but my company policy is very strict about VM networking, which is preventing me from building the"
 ---
 
 I’ve been talking about the VM-operated AI agents idea, but my company policy is very strict about VM networking, which is preventing me from building the helper agents I wanted.

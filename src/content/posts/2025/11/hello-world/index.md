@@ -2,6 +2,7 @@
 date: 2025-11-28T11:51:52+07:00
 title: "Hello, World"
 tags: [personal, blogging]
+description: "Here we go — I'm starting a new blog."
 ---
 
 Here we go — I'm starting a new blog.

@@ -2,6 +2,7 @@
 date: 2025-11-30T10:00:00+07:00
 title: "Letting Multiple AI Agents Review My Code"
 tags: [ai, tooling]
+description: "I'm using CodeRabbit and Cursor Agent Review to look over my work before submitting it. They're great, but it still feels like it's not enough for me."
 ---
 
 I'm using CodeRabbit and Cursor Agent Review to look over my work before submitting it. They're great, but it still feels like it's not enough for me.

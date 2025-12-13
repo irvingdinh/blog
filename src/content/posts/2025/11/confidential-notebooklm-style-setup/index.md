@@ -2,6 +2,7 @@
 date: 2025-11-28T14:40:00+07:00
 title: "A Confidential NotebookLM-Style Setup With Codex CLI"
 tags: [ai, tooling, privacy]
+description: "I'm thinking about a NotebookLM look-a-like, but with confidentiality in mind."
 ---
 
 I'm thinking about a NotebookLM look-a-like, but with confidentiality in mind.

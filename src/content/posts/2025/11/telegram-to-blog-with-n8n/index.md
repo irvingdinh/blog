@@ -2,6 +2,7 @@
 date: 2025-11-28T13:58:02+07:00
 title: "Writing Blog Posts From Telegram With n8n and Codex CLI"
 tags: [automation, n8n, blogging, ai]
+description: "Today I set up a small n8n workflow that lets me turn a Telegram message into a blog post — including this one."
 ---
 
 Today I set up a small n8n workflow that lets me turn a Telegram message into a blog post — including this one.
