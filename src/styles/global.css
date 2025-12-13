@@ -1,2 +1,7 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+
+/* Let the UA style built-in UI (form controls, scrollbars) to match system theme. */
+:root {
+  color-scheme: light dark;
+}
